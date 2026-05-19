@@ -157,18 +157,15 @@
                 max-width: 230px;
                 min-height: auto;
             }
-            .row-4 {
-                flex-wrap: wrap !important; /* Memaksa kotak turun ke bawah jika layar laptop sempit */
-            }
             .row-4 .box-keamanan, .row-4 .box-perawatan, .row-4 .box-kegiatan {
-                flex: 1 1 200px;
-                min-width: 200px;
+                flex: 1.5;
+                min-width: 220px;
                 max-width: 280px;
                 min-height: auto;
             }
             .row-4 .box-kebersihan {
-                flex: 1 1 200px;
-                min-width: 200px;
+                flex: 1.2;
+                min-width: 220px;
                 max-width: 260px;
                 min-height: auto;
             }
@@ -242,22 +239,6 @@
             50% {
                 transform: translateX(60px) rotate(180deg);
             }
-        }
-
-        /* --- EFEK LOGO TERBANG/MELAYANG PELAN --- */
-        @keyframes logoMelayang {
-            0% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-6px); /* Naik sejauh 6px */
-            }
-            100% {
-                transform: translateY(0px);
-            }
-        }
-        .logo-terbang {
-            animation: logoMelayang 4s ease-in-out infinite;
         }
     </style>
 </head>
