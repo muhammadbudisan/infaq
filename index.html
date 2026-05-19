@@ -321,15 +321,15 @@
             </div>
         </div>
 
-        <!-- Saldo Utama (DIPASTIKAN URUTAN LOGO DIKUNCI KHUSUS CETAK/PDF) -->
-        <div class="bg-[#2563eb] text-white text-center py-7 md:py-10 rounded-3xl shadow-md relative overflow-hidden flex flex-row items-center justify-between px-4 md:px-10 min-w-0">
-            <!-- Logo Allah (Kunci Kiri) -->
-            <div class="order-1 flex-shrink-0 w-12 h-12 md:w-24 md:h-24 flex items-center justify-center">
-                <img src="https://lh3.googleusercontent.com/d/12Fq-1Non8wuie0N7Qvvi6UoToZeTgsX7" alt="Logo Allah" class="w-full h-full object-contain logo-terbang" style="filter: drop-shadow(0px 12px 6px rgba(0, 0, 0, 0.45));">
+        <!-- Saldo Utama -->
+        <div class="bg-[#2563eb] text-white text-center py-7 md:py-10 rounded-3xl shadow-md relative overflow-hidden flex items-center justify-between px-4 md:px-10">
+            <!-- Logo 1 Rata Kiri -->
+            <div class="flex-shrink-0 w-12 h-12 md:w-24 md:h-24 flex items-center justify-center">
+                <img src="https://lh3.googleusercontent.com/d/12Fq-1Non8wuie0N7Qvvi6UoToZeTgsX7" alt="Logo Kiri" class="w-full h-full object-contain logo-terbang" style="filter: drop-shadow(0px 12px 6px rgba(0, 0, 0, 0.45));">
             </div>
             
             <!-- Konten Tengah -->
-            <div class="order-2 flex-1 flex flex-col items-center justify-center px-2">
+            <div class="flex-1 flex flex-col items-center justify-center px-2">
                 <div class="flex items-center justify-center gap-2 mb-2">
                     <div class="radar-pulse"></div>
                     <p class="text-[9px] md:text-[10px] text-[#00FF66] tracking-widest uppercase style-glow" style="text-shadow: 0 0 6px #00FF66, 0 0 12px rgba(0,255,102,0.4);">
@@ -340,9 +340,9 @@
                 <p id="total-saldo" class="text-4xl md:text-7xl tracking-tight text-white" style="text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.45);">Rp 0</p>
             </div>
             
-            <!-- Logo Muhammad (Kunci Kanan) -->
-            <div class="order-3 flex-shrink-0 w-12 h-12 md:w-24 md:h-24 flex items-center justify-center">
-                <img src="https://lh3.googleusercontent.com/d/19d7WpltUXzREJVO5AekEsqwjonJk_v1y" alt="Logo Muhammad" class="w-full h-full object-contain logo-terbang" style="filter: drop-shadow(0px 12px 6px rgba(0, 0, 0, 0.45));">
+            <!-- Logo 2 Rata Kanan -->
+            <div class="flex-shrink-0 w-12 h-12 md:w-24 md:h-24 flex items-center justify-center">
+                <img src="https://lh3.googleusercontent.com/d/19d7WpltUXzREJVO5AekEsqwjonJk_v1y" alt="Logo Kanan" class="w-full h-full object-contain logo-terbang" style="filter: drop-shadow(0px 12px 6px rgba(0, 0, 0, 0.45));">
             </div>
         </div>
 
@@ -595,7 +595,8 @@
                 
                 let notaHtml = "";
                 if (item.nota && item.nota.trim() !== "") {
-                    notaHtml = `<div class="block w-full mt-0.5 ml-[72px] md:ml-0"><a href="${item.nota}" target="_blank" class="text-[10px] md:text-[11px] text-blue-600 hover:underline inline-block tracking-wide bg-blue-50 md:bg-transparent px-2 py-0.5 md:p-0 rounded border border-blue-200 md:border-0">Lihat Foto Nota</a></div>`;
+                    // Di-render bersih tanpa margin manual bawaan cetak lama agar flex-col mobile merapat lurus otomatis ke tepi kiri kontainer
+                    notaHtml = `<div class="block w-full mt-1 text-left md:ml-0"><a href="${item.nota}" target="_blank" class="text-[10px] md:text-[11px] text-blue-600 hover:underline inline-block tracking-wide bg-blue-50 md:bg-transparent px-2 py-0.5 md:p-0 rounded border border-blue-200 md:border-0">Lihat Foto Nota</a></div>`;
                 }
                 
                 rowContainer.innerHTML = `
@@ -607,11 +608,25 @@
                         </button>
                     </div>
                     <div class="md:col-span-4 text-slate-700 uppercase leading-tight text-xs md:text-sm flex flex-col items-start justify-center md:px-4 min-w-0">
-                        <div class="flex items-start w-full justify-between md:justify-start">
+                        <!-- Tampilan Khusus Mobile: Struktur Kotak Vertikal Rata Kiri Total Presisi -->
+                        <div class="flex flex-col items-start justify-start w-full text-left md:hidden">
+                            <div class="w-full flex items-start justify-start m-0 p-0">
+                                <span class="text-slate-400 uppercase text-[9px] block shrink-0 pt-[2px] mr-1">Keterangan:</span>
+                                <div class="flex-1 flex flex-col items-start justify-start m-0 p-0 text-left">
+                                    <span class="text-left break-all w-full block">${item.keterangan}</span>
+                                    ${notaHtml}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Layout Bawaan Desktop Asli (Kembali 100% Sesuai Kode Utama Anda) -->
+                        <div class="hidden md:flex md:items-start md:w-full md:justify-start">
                             <span class="md:hidden text-slate-400 uppercase text-[9px] mr-2 block shrink-0 pt-[1px]">Keterangan:</span>
                             <span class="flex-1 md:flex-none text-left break-all">${item.keterangan}</span>
                         </div>
-                        ${notaHtml}
+                        <div class="hidden md:block">
+                            ${notaHtml}
+                        </div>
                     </div>
                     <div class="md:col-span-2 md:text-right text-[#10b981] text-xs md:text-sm flex justify-between md:justify-end md:pr-4 whitespace-nowrap min-w-0 flex-1 md:shrink-0">
                         <span class="md:hidden text-slate-400 uppercase text-[9px]">Masuk (+):</span>
